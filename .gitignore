@@ -1,0 +1,19 @@
+# Python
+.venv/
+.airflow_venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Airflow
+airflow.db
+.airflow/
+
+# Raw / debug data
+data/raw/
+data/debug/
+
+# macOS
+.DS_Store
