@@ -85,16 +85,12 @@ direction = st.selectbox(
 )
 
 flight_dates = (
-    df[
-        (df["origin_city_code"] == "TPE") |
-        (df["destination_city_code"] == "TPE")
-    ]["outbound_date"]
-    .dropna()
+    pd.to_datetime(df["departure_datetime"])
+    .dt.strftime("%Y-%m-%d")
     .drop_duplicates()
     .sort_values()
+    .tolist()
 )
-
-flight_dates = pd.to_datetime(flight_dates).dt.strftime("%Y-%m-%d").tolist()
 
 selected_date = st.selectbox(
     "選擇航班日期",
@@ -107,7 +103,7 @@ if direction == "去程":
     df = df[
         (df["origin_city_code"] == "TPE") &
         (df["destination_city_code"] == destination) &
-        (pd.to_datetime(df["outbound_date"]).dt.strftime("%Y-%m-%d") == selected_date)
+        (pd.to_datetime(df["departure_datetime"]).dt.strftime("%Y-%m-%d") == selected_date)
     ].copy()
 
 else:
@@ -115,7 +111,7 @@ else:
     df = df[
         (df["origin_city_code"] == destination) &
         (df["destination_city_code"] == "TPE") &
-        (pd.to_datetime(df["outbound_date"]).dt.strftime("%Y-%m-%d") == selected_date)
+        (pd.to_datetime(df["departure_datetime"]).dt.strftime("%Y-%m-%d") == selected_date)
     ].copy()
 
 
@@ -138,7 +134,7 @@ if latest_df.empty:
 
 origin = df.iloc[0]["origin_city_code"]
 destination = df.iloc[0]["destination_city_code"]
-flight_date = df.iloc[0]["outbound_date"]
+flight_date = df.iloc[0]["departure_datetime"]
 
 st.caption(
     f"{origin} → {destination}｜"
