@@ -156,6 +156,7 @@ def run_post_steps(origin, destination, date, raw_file):
     env["FLIGHT_TRIP_ORIGIN"] = ORIGIN_CODE
     env["FLIGHT_TRIP_DESTINATION"] = DESTINATION_CODE
     env["FLIGHT_RAW_FILE"] = os.path.abspath(raw_file)
+    print("DEBUG FLIGHT_RAW_FILE:", env["FLIGHT_RAW_FILE"])
 
     for script in POST_STEPS:
         path = os.path.join(SRC_DIR, script)

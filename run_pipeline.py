@@ -1,11 +1,13 @@
 import os
 import subprocess
 import sys
+from dotenv import load_dotenv
 
 # ==============================
 # 取得 Airflow 傳進來的航線
 # ==============================
 
+load_dotenv()
 ORIGIN = os.getenv("FLIGHT_ORIGIN")
 DESTINATION = os.getenv("FLIGHT_DESTINATION")
 
